@@ -16,4 +16,29 @@ class Ball{
         bool isBall(size_t posY, size_t posX){
             return this->posX == posX && this->posY == posY;
         }
+
+        size_t getPosX(){
+            return posX;
+        }
+
+        size_t getPosY(){
+            return posY;
+        }
+
+
+        void moveUp(){
+            posY -= 1;
+        }
+
+        void moveDown(){
+            posY += 1;
+        }
+
+        void moveLeft(){
+            posX -= 1;
+        }
+
+        void moveRigth(){
+            posX += 1;
+        }
 };
