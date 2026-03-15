@@ -39,7 +39,7 @@ class Game{
                     if(paddle1.isPaddle(i, j) || paddle2.isPaddle(i, j))
                         arena->getFrame()[i][j] = '0';
                     else if(ball.isBall(i, j))
-                        arena->getFrame()[i][j] = '0';
+                        arena->getFrame()[i][j] = ball.getSkin();
                     else
                         arena->getFrame()[i][j] = '-';
                 }
@@ -83,11 +83,23 @@ class Game{
         void print_info(){
             std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit" << std::endl;
         }
-        void movePaddleUp(){
-            paddle1.getPosY()--;
+        void movePlayerPaddleUp(){
+            paddle1.movePaddleUp();
         }
-        void movePaddleDown(){
-            paddle1.getPosY()++;
+        void movePlayerPaddleDown(){
+            paddle1.movePaddleDown();
+        }
+
+        void movePaddleBot(){
+            if(ball.getPosY() < paddle2.getPosY()){
+                paddle2.movePaddleUp();
+            }
+            else if(ball.getPosY() > paddle2.getPosY() + paddle2.getHeight() - 1){
+                paddle2.movePaddleDown();
+            }
+        }
+        void setBallSkin(char c){
+            this->ball.setSkin(c);
         }
         char getKeyPress() {
             struct termios oldt, newt;

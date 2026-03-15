@@ -12,7 +12,6 @@ class Arena{
         height(0),
         width(0),
         frame(){}
-        
         Arena(Screen screen) : 
         height(screen.getHeight()), 
         width(screen.getWidth()), 
@@ -21,7 +20,6 @@ class Arena{
         size_t getHeight(){
             return height;
         }
-
         size_t getWidth(){
             return width;
         }

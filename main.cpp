@@ -5,8 +5,9 @@ int main(){
     Screen screen(15, 80);
     Arena arena(screen);
     Game game(&arena);
+    game.setBallSkin('Q');
 
-    const int FPS = 15;
+    const int FPS = 20;
     const std::chrono::milliseconds frameDuration(1000 / FPS);
 
     while(true){
@@ -18,13 +19,15 @@ int main(){
             break;
         }
         if (key == 'w'){
-            game.movePaddleUp();
+            game.movePlayerPaddleUp();
         }
         if (key == 's'){
-            game.movePaddleDown();
+            game.movePlayerPaddleDown();
         }
+        
         game.updateFrame();
         game.moveBall();
+        game.movePaddleBot();
 
         game.clearFrame();
 

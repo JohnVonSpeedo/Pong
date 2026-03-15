@@ -18,10 +18,24 @@ class Paddle{
             posY = arenaHeight / 3.5;
             this->posX = posX; 
         }
+        
         bool isPaddle(size_t posY, size_t posX){
             return this->posX == posX && posY >= this->posY && posY < this->posY + height; 
         }
-        size_t& getPosY(){
+        
+        size_t getPosX(){
+            return posX;
+        }
+        size_t getPosY(){
             return posY;
         }
-};
+        size_t getHeight(){
+            return height;
+        }
+        void movePaddleUp(){
+            posY--;
+        }
+        void movePaddleDown(){
+            posY++;
+        }
+    };
