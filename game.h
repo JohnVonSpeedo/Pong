@@ -1,5 +1,8 @@
 #pragma once
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#include <termios.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include "arena.h"
 #include "paddle.h"
 #include "ball.h"
@@ -21,7 +24,6 @@ class Game{
             paddle2 = Paddle();
             ball = Ball();
         }
-
         Game(Arena *arena){
             left = true;
             down = true;
@@ -50,6 +52,9 @@ class Game{
                 std::cout << std::endl;
             }
         }
+        void clearFrame(){
+            std::cout << "\033[2J\033[H";
+        }
         void moveBall(){
             if(ball.getPosX() == 1 && arena->getFrame()[ball.getPosY()][ball.getPosX() - 1] == '0') left = false;
             if(ball.getPosX() == arena->getWidth() - 2 && arena->getFrame()[ball.getPosY()][ball.getPosX() + 1] == '0') left = true;
@@ -71,5 +76,38 @@ class Game{
                 ball.moveUp();
                 ball.moveRigth();
             }
+        }
+        void build_border(){
+            std::cout << std::string(arena->getWidth(), '=') << std::endl;
+        }
+        void print_info(){
+            std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit" << std::endl;
+        }
+
+        char getKeyPress() {
+            struct termios oldt, newt;
+            char ch;
+            int oldf;
+
+            // Get current terminal settings
+            tcgetattr(STDIN_FILENO, &oldt);
+            newt = oldt;
+
+            // Disable line buffering and echo
+            newt.c_lflag &= ~(ICANON | ECHO);
+            tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+            // Make read() non-blocking
+            oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+            fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
+
+            // Try to read a character
+            ch = getchar();
+
+            // Restore terminal settings
+            tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+            fcntl(STDIN_FILENO, F_SETFL, oldf);
+
+            return ch;
         }
 };
