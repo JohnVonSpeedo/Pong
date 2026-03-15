@@ -127,4 +127,16 @@ class Game{
 
             return ch;
         }
+
+        void update(){
+            updateFrame();
+            clearFrame();
+        }
+        void printFrame(){
+            build_border();
+            drawFrame();
+            build_border();
+            print_info();
+        }
+
 };

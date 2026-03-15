@@ -25,17 +25,12 @@ int main(){
             game.movePlayerPaddleDown();
         }
         
-        game.updateFrame();
         game.moveBall();
         game.movePaddleBot();
 
-        game.clearFrame();
+        game.update();
 
-        game.build_border();
-        game.drawFrame();
-        game.build_border();
-        game.print_info();
-
+        game.printFrame();
 
         auto frameEnd = std::chrono::high_resolution_clock::now();
         auto elapsed = frameEnd - frameStart;
@@ -43,6 +38,5 @@ int main(){
             std::this_thread::sleep_for(frameDuration - elapsed);
         }
     }
-
     return 0;
 }
