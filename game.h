@@ -83,7 +83,12 @@ class Game{
         void print_info(){
             std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit" << std::endl;
         }
-
+        void movePaddleUp(){
+            paddle1.getPosY()--;
+        }
+        void movePaddleDown(){
+            paddle1.getPosY()++;
+        }
         char getKeyPress() {
             struct termios oldt, newt;
             char ch;

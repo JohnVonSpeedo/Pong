@@ -21,4 +21,7 @@ class Paddle{
         bool isPaddle(size_t posY, size_t posX){
             return this->posX == posX && posY >= this->posY && posY < this->posY + height; 
         }
+        size_t& getPosY(){
+            return posY;
+        }
 };

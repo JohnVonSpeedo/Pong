@@ -2,7 +2,7 @@
 #include "game.h"
 
 int main(){
-    Screen screen(15, 50);
+    Screen screen(15, 80);
     Arena arena(screen);
     Game game(&arena);
 
@@ -17,7 +17,12 @@ int main(){
             std::system("clear");
             break;
         }
-
+        if (key == 'w'){
+            game.movePaddleUp();
+        }
+        if (key == 's'){
+            game.movePaddleDown();
+        }
         game.updateFrame();
         game.moveBall();
 
