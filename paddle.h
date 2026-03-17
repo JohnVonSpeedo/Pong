@@ -32,6 +32,11 @@ class Paddle{
         size_t getHeight(){
             return height;
         }
+        
+        void setPosY(size_t posY){
+            this->posY = posY;
+        }
+        
         void movePaddleUp(){
             if(this->getPosY() > 0)
                 posY--;
@@ -40,4 +45,4 @@ class Paddle{
             if(this->getPosY() < height + 1)
                 posY++;
         }
-    };
+};

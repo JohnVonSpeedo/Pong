@@ -38,5 +38,6 @@ int main(){
             std::this_thread::sleep_for(frameDuration - elapsed);
         }
     }
+    
     return 0;
 }

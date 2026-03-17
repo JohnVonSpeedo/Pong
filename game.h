@@ -38,6 +38,10 @@ class Game{
             this->ball = Ball(arena->getHeight(), arena->getWidth() - 1);
         }
 
+        void update(){
+            updateFrame();
+            clearFrame();
+        }       
         void updateFrame(){
             for(size_t i = 0; i < arena->getFrame().size(); i++){
                 for(size_t j = 0; j < arena->getFrame()[i].size(); j++){
@@ -50,7 +54,7 @@ class Game{
                 }
             }
         }
-        void drawFrame(){
+        void renderFrame() const{
             for(size_t i = 0; i < arena->getFrame().size(); i++){
                 for(size_t j = 0; j < arena->getFrame()[i].size(); j++)
                     std::cout << arena->getFrame()[i][j];
@@ -60,16 +64,35 @@ class Game{
         void clearFrame(){
             std::cout << "\033[2J\033[H";
         }
+        
+        void build_border(){
+            std::cout << std::string(arena->getWidth(), '=') << std::endl;
+        }
+        void print_info(){
+            std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit | player1 " << player1_points << " - " << player2_points << " player2" << std::endl;
+        }
+        void printFrame(){
+            build_border();
+            renderFrame();
+            build_border();
+            print_info();
+        }
+        
         void moveBall(){
             if(ball.getPosX() < 1){ 
                 player1_points++;
                 ball.setPosX(arena->getWidth()/2);
                 ball.setPosY(arena->getHeight()/2);
+                paddle1.setPosY(arena->getHeight()/3.5);
+                paddle2.setPosY(arena->getHeight()/3.5);
+
             }
             if(ball.getPosX() > arena->getWidth()) {
                 player2_points++;
                 ball.setPosX(arena->getWidth()/2);
                 ball.setPosY(arena->getHeight()/2);
+                paddle1.setPosY(arena->getHeight()/3.5);
+                paddle2.setPosY(arena->getHeight()/3.5);
             }
             if(ball.getPosX() == 1 && arena->getFrame()[ball.getPosY()][ball.getPosX() - 1] == '0') left = false;
             if(ball.getPosX() == arena->getWidth() - 2 && arena->getFrame()[ball.getPosY()][ball.getPosX() + 1] == '0') left = true;
@@ -92,30 +115,31 @@ class Game{
                 ball.moveRigth();
             }
         }
-        void build_border(){
-            std::cout << std::string(arena->getWidth(), '=') << std::endl;
-        }
-        void print_info(){
-            std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit | player1 " << player1_points << " - " << player2_points << " player2" << std::endl;
-        }
         void movePlayerPaddleUp(){
             paddle1.movePaddleUp();
         }
         void movePlayerPaddleDown(){
             paddle1.movePaddleDown();
         }
-
         void movePaddleBot(){
-            if(ball.getPosY() < paddle2.getPosY()){
-                paddle2.movePaddleUp();
-            }
-            else if(ball.getPosY() > paddle2.getPosY() + paddle2.getHeight() - 1){
-                paddle2.movePaddleDown();
+            srand(time(0));
+
+            double chance = rand() % 100;
+            
+            if(chance < 30){
+                if(ball.getPosY() < paddle2.getPosY()){
+                    paddle2.movePaddleUp();
+                }
+                else if(ball.getPosY() > paddle2.getPosY() + paddle2.getHeight() - 1){
+                    paddle2.movePaddleDown();
+                }
             }
         }
+        
         void setBallSkin(char c){
             this->ball.setSkin(c);
         }
+        
         char getKeyPress() {
             struct termios oldt, newt;
             char ch;
@@ -142,16 +166,4 @@ class Game{
 
             return ch;
         }
-
-        void update(){
-            updateFrame();
-            clearFrame();
-        }
-        void printFrame(){
-            build_border();
-            drawFrame();
-            build_border();
-            print_info();
-        }
-
 };
