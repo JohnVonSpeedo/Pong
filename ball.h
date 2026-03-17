@@ -30,6 +30,12 @@ class Ball{
             return posY;
         }
 
+        void setPosX(size_t posX){
+            this->posX = posX;
+        }
+        void setPosY(size_t posY){
+            this->posY = posY;
+        }
         void setSkin(char skin){
             this->skin = skin;
         }

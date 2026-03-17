@@ -10,6 +10,7 @@
 class Game{
     private:
         bool left, down;
+        size_t player1_points, player2_points;
         Arena *arena;
         Paddle paddle1;
         Paddle paddle2;
@@ -19,6 +20,8 @@ class Game{
         Game(){
             left = true;
             down = true;
+            player1_points = 0;
+            player2_points = 0;
             arena = new Arena();
             paddle1 = Paddle();
             paddle2 = Paddle();
@@ -27,6 +30,8 @@ class Game{
         Game(Arena *arena){
             left = true;
             down = true;
+            player1_points = 0;
+            player2_points = 0;
             this->arena = arena;
             this->paddle1 = Paddle(arena->getHeight(), 0);
             this->paddle2 = Paddle(arena->getHeight(), arena->getWidth() - 1);
@@ -56,6 +61,16 @@ class Game{
             std::cout << "\033[2J\033[H";
         }
         void moveBall(){
+            if(ball.getPosX() < 1){ 
+                player1_points++;
+                ball.setPosX(arena->getWidth()/2);
+                ball.setPosY(arena->getHeight()/2);
+            }
+            if(ball.getPosX() > arena->getWidth()) {
+                player2_points++;
+                ball.setPosX(arena->getWidth()/2);
+                ball.setPosY(arena->getHeight()/2);
+            }
             if(ball.getPosX() == 1 && arena->getFrame()[ball.getPosY()][ball.getPosX() - 1] == '0') left = false;
             if(ball.getPosX() == arena->getWidth() - 2 && arena->getFrame()[ball.getPosY()][ball.getPosX() + 1] == '0') left = true;
             if(ball.getPosY() == 0) down = true;
@@ -81,7 +96,7 @@ class Game{
             std::cout << std::string(arena->getWidth(), '=') << std::endl;
         }
         void print_info(){
-            std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit" << std::endl;
+            std::cout << " Controls: W/S (Up/Down) | Press 'q' to Exit | player1 " << player1_points << " - " << player2_points << " player2" << std::endl;
         }
         void movePlayerPaddleUp(){
             paddle1.movePaddleUp();

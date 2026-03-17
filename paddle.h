@@ -33,9 +33,11 @@ class Paddle{
             return height;
         }
         void movePaddleUp(){
-            posY--;
+            if(this->getPosY() > 0)
+                posY--;
         }
         void movePaddleDown(){
-            posY++;
+            if(this->getPosY() < height + 1)
+                posY++;
         }
     };
