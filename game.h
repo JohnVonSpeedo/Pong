@@ -80,7 +80,7 @@ class Game{
         
         void moveBall(){
             if(ball.getPosX() < 1){ 
-                player1_points++;
+                player2_points++;
                 ball.setPosX(arena->getWidth()/2);
                 ball.setPosY(arena->getHeight()/2);
                 paddle1.setPosY(arena->getHeight()/3.5);
@@ -88,7 +88,7 @@ class Game{
 
             }
             if(ball.getPosX() > arena->getWidth()) {
-                player2_points++;
+                player1_points++;
                 ball.setPosX(arena->getWidth()/2);
                 ball.setPosY(arena->getHeight()/2);
                 paddle1.setPosY(arena->getHeight()/3.5);
