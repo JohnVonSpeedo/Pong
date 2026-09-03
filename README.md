@@ -21,10 +21,13 @@ To build and run this game locally, ensure you have the following installed on y
 
 2. Create a build directory and navigate into it:
    ```mkdir build
-      cd build```
+      cd build
+   ```
 
 3. Build the project:
-   ```cmake ..```
+   ```cmake ..
+   ```
 
-4. Compile the project:
-   ```make```
+5. Compile the project:
+   ```make
+   ```
