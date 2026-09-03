@@ -15,19 +15,24 @@ To build and run this game locally, ensure you have the following installed on y
 
 ## Build and Compile
 1. Clone the repository and navigate into it:
-   ```bash
+   ```
+   bash
    git clone [https://github.com/yoanevangelu/Pong.git](https://github.com/yoanevangelu/Pong.git)
-   cd Pong```
+   cd Pong
+   ```
 
 2. Create a build directory and navigate into it:
-   ```mkdir build
-      cd build
+   ```
+   mkdir build
+   cd build
    ```
 
 3. Build the project:
-   ```cmake ..
+   ```
+   cmake ..
    ```
 
 5. Compile the project:
-   ```make
+   ```
+   make
    ```
